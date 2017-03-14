@@ -24,7 +24,7 @@ public class StockPricePredictionsHasStockTickersBean {
     }
 
     @Id
-    @Column(name = "stock_tickers_id", nullable = false)
+    @Column(name = "stock_tickers_id", nullable = false, insertable = false, updatable = false)
     public int getStockTickersId() {
         return stockTickersId;
     }
@@ -54,7 +54,7 @@ public class StockPricePredictionsHasStockTickersBean {
     }
 
     @ManyToOne
-    @JoinColumn(name = "stock_price_predictions_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "stock_price_predictions_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public StockPricePredictionsBean getStockPricePredictionsByStockPricePredictionsId() {
         return stockPricePredictionsByStockPricePredictionsId;
     }

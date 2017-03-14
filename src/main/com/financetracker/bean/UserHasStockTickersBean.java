@@ -54,18 +54,18 @@ public class UserHasStockTickersBean {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    public UserBean getUserByUserId() {
-        return userByUserId;
-    }
-
     public void setUserByUserId(UserBean userByUserId) {
         this.userByUserId = userByUserId;
     }
 
     @ManyToOne
-    @JoinColumn(name = "stock_tickers_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    public UserBean getUserByUserId() {
+        return userByUserId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "stock_tickers_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public StockTickersBean getStockTickersByStockTickersId() {
         return stockTickersByStockTickersId;
     }
