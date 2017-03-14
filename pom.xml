@@ -12,10 +12,10 @@
     <properties>
         <spring.version>4.3.6.RELEASE</spring.version>
         <hibernate.version>5.2.8.Final</hibernate.version>
-        <mysql.version>6.0.5</mysql.version>
         <jackson.version>1.9.10</jackson.version>
         <c3p0-pool.version>0.9.1.2</c3p0-pool.version>
         <mysql-connector.version>6.0.5</mysql-connector.version>
+        <log4j.version>1.2.17</log4j.version>
     </properties>
 
     <dependencies>
@@ -73,6 +73,12 @@
             <version>${jackson.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
 
     </dependencies>
 
