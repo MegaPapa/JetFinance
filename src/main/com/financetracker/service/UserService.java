@@ -1,5 +1,7 @@
 package com.financetracker.service;
 
+import com.financetracker.bean.User;
+
 import java.util.Collection;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Collection;
  */
 public interface UserService {
 
-    void registration(UserBean user);
-    UserBean getUser(int id);
-    Collection<UserBean> getAllUsers();
+    void registration(User user);
+    User getUser(int id);
+    Collection<User> getAllUsers();
 }

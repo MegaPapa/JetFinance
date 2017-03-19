@@ -1,5 +1,7 @@
 package com.financetracker.dao.impl;
 
+import com.financetracker.bean.Role;
+import com.financetracker.bean.User;
 import com.financetracker.dao.UserDAO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,21 +24,21 @@ public class UserDAOImpl implements UserDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void addUser(UserBean user) {
+    public void addUser(User user) {
         Session session = sessionFactory.getCurrentSession();
-        RoleBean role = session.get(RoleBean.class, USER_ROLE_INDEX);
+        Role role = session.get(Role.class, USER_ROLE_INDEX);
         user.setRoleByRoleId(role);
         System.out.println(user.getId());
         session.save(user);
     }
 
-    public UserBean getUserById(int id) {
+    public User getUserById(int id) {
         Session session = sessionFactory.getCurrentSession();
-        UserBean user = session.get(UserBean.class, id);
+        User user = session.get(User.class, id);
         return user;
     }
 
-    public Collection<UserBean> getAllUsers() {
+    public Collection<User> getAllUsers() {
         return null;
     }
 }

@@ -17,9 +17,9 @@ public class User {
     private byte isPremium;
     private Timestamp premiumEndDate;
     private String email;
-    private Collection<BannedUsers> bannedUserssById;
     private Role roleByRoleId;
     private Set<StockTickers> users;
+    private int roleId;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -122,17 +122,8 @@ public class User {
         return result;
     }
 
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<BannedUsers> getBannedUserssById() {
-        return bannedUserssById;
-    }
-
-    public void setBannedUserssById(Collection<BannedUsers> bannedUserssById) {
-        this.bannedUserssById = bannedUserssById;
-    }
-
     @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public Role getRoleByRoleId() {
         return roleByRoleId;
     }
@@ -142,12 +133,22 @@ public class User {
     }
 
     @ManyToMany
-    @JoinTable(name = "user_has_stock_tickers", catalog = "", schema = "financetrackerdb", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "stock_tickers_id", referencedColumnName = "id", nullable = false))
+    @JoinTable(name = "user_has_stock_tickers", schema = "financetrackerdb", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "stock_tickers_id", referencedColumnName = "id", nullable = false))
     public Set<StockTickers> getUsers() {
         return users;
     }
 
     public void setUsers(Set<StockTickers> users) {
         this.users = users;
+    }
+
+    @Basic
+    @Column(name = "role_id", nullable = false)
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 }

@@ -1,5 +1,7 @@
 package com.financetracker.dao;
 
+import com.financetracker.bean.User;
+
 import java.util.Collection;
 
 /**
@@ -10,11 +12,11 @@ public interface UserDAO {
     /* CRUD Operations */
 
     // CREATE
-    void addUser(UserBean user);
+    void addUser(User user);
 
     // READ
-    UserBean getUserById(int id);
+    User getUserById(int id);
 
     // READ
-    Collection<UserBean> getAllUsers();
+    Collection<User> getAllUsers();
 }

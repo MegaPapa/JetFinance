@@ -1,5 +1,6 @@
 package com.financetracker.service.impl;
 
+import com.financetracker.bean.User;
 import com.financetracker.dao.UserDAO;
 import com.financetracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDAO userDAO;
 
-    public void registration(UserBean user) {
+    public void registration(User user) {
         userDAO.addUser(user);
     }
 
-    public UserBean getUser(int id) {
+    public User getUser(int id) {
         return userDAO.getUserById(id);
     }
 
-    public Collection<UserBean> getAllUsers() {
+    public Collection<User> getAllUsers() {
         return null;
     }
 }
