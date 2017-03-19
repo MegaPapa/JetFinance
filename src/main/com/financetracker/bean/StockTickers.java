@@ -1,16 +1,20 @@
 package com.financetracker.bean;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 /**
- * Created by User on 13.03.2017.
+ * Created by User on 19.03.2017.
  */
 @Entity
 @Table(name = "stock_tickers", schema = "financetrackerdb", catalog = "")
-public class StockTickersBean {
+public class StockTickers {
     private int id;
     private String companyName;
     private String ticker;
+    private Set<User> userStockTickers;
+    private List<StockPricePredictions> stockTickers;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -47,7 +51,7 @@ public class StockTickersBean {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        StockTickersBean that = (StockTickersBean) o;
+        StockTickers that = (StockTickers) o;
 
         if (id != that.id) return false;
         if (companyName != null ? !companyName.equals(that.companyName) : that.companyName != null) return false;
@@ -62,5 +66,24 @@ public class StockTickersBean {
         result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
         result = 31 * result + (ticker != null ? ticker.hashCode() : 0);
         return result;
+    }
+
+    @ManyToMany(mappedBy = "users")
+    public Set<User> getUserStockTickers() {
+        return userStockTickers;
+    }
+
+    public void setUserStockTickers(Set<User> userStockTickers) {
+        this.userStockTickers = userStockTickers;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "stock_price_predictions_has_stock_tickers", catalog = "", schema = "financetrackerdb", joinColumns = @JoinColumn(name = "stock_tickers_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "stock_price_predictions_id", referencedColumnName = "id", nullable = false))
+    public List<StockPricePredictions> getStockTickers() {
+        return stockTickers;
+    }
+
+    public void setStockTickers(List<StockPricePredictions> stockTickers) {
+        this.stockTickers = stockTickers;
     }
 }

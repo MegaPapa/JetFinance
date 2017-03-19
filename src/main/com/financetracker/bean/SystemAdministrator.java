@@ -3,15 +3,15 @@ package com.financetracker.bean;
 import javax.persistence.*;
 
 /**
- * Created by User on 13.03.2017.
+ * Created by User on 19.03.2017.
  */
 @Entity
 @Table(name = "system_administrator", schema = "financetrackerdb", catalog = "")
-public class SystemAdministratorBean {
+public class SystemAdministrator {
     private int id;
     private String nickname;
     private String email;
-    private RoleBean roleByRoleId;
+    private Role roleByRoleId;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -48,7 +48,7 @@ public class SystemAdministratorBean {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SystemAdministratorBean that = (SystemAdministratorBean) o;
+        SystemAdministrator that = (SystemAdministrator) o;
 
         if (id != that.id) return false;
         if (nickname != null ? !nickname.equals(that.nickname) : that.nickname != null) return false;
@@ -67,11 +67,11 @@ public class SystemAdministratorBean {
 
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
-    public RoleBean getRoleByRoleId() {
+    public Role getRoleByRoleId() {
         return roleByRoleId;
     }
 
-    public void setRoleByRoleId(RoleBean roleByRoleId) {
+    public void setRoleByRoleId(Role roleByRoleId) {
         this.roleByRoleId = roleByRoleId;
     }
 }

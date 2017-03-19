@@ -2,13 +2,14 @@ package com.financetracker.bean;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Set;
 
 /**
- * Created by User on 13.03.2017.
+ * Created by User on 19.03.2017.
  */
 @Entity
-@Table(name = "user", schema = "financetrackerdb", catalog = "")
-public class UserBean {
+public class User {
     private int id;
     private String nickname;
     private String password;
@@ -16,7 +17,9 @@ public class UserBean {
     private byte isPremium;
     private Timestamp premiumEndDate;
     private String email;
-    private RoleBean roleByRoleId;
+    private Collection<BannedUsers> bannedUserssById;
+    private Role roleByRoleId;
+    private Set<StockTickers> users;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -93,16 +96,16 @@ public class UserBean {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserBean userBean = (UserBean) o;
+        User user = (User) o;
 
-        if (id != userBean.id) return false;
-        if (isActive != userBean.isActive) return false;
-        if (isPremium != userBean.isPremium) return false;
-        if (nickname != null ? !nickname.equals(userBean.nickname) : userBean.nickname != null) return false;
-        if (password != null ? !password.equals(userBean.password) : userBean.password != null) return false;
-        if (premiumEndDate != null ? !premiumEndDate.equals(userBean.premiumEndDate) : userBean.premiumEndDate != null)
+        if (id != user.id) return false;
+        if (isActive != user.isActive) return false;
+        if (isPremium != user.isPremium) return false;
+        if (nickname != null ? !nickname.equals(user.nickname) : user.nickname != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (premiumEndDate != null ? !premiumEndDate.equals(user.premiumEndDate) : user.premiumEndDate != null)
             return false;
-        if (email != null ? !email.equals(userBean.email) : userBean.email != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
 
         return true;
     }
@@ -119,13 +122,32 @@ public class UserBean {
         return result;
     }
 
+    @OneToMany(mappedBy = "userByUserId")
+    public Collection<BannedUsers> getBannedUserssById() {
+        return bannedUserssById;
+    }
+
+    public void setBannedUserssById(Collection<BannedUsers> bannedUserssById) {
+        this.bannedUserssById = bannedUserssById;
+    }
+
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
-    public RoleBean getRoleByRoleId() {
+    public Role getRoleByRoleId() {
         return roleByRoleId;
     }
 
-    public void setRoleByRoleId(RoleBean roleByRoleId) {
+    public void setRoleByRoleId(Role roleByRoleId) {
         this.roleByRoleId = roleByRoleId;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "user_has_stock_tickers", catalog = "", schema = "financetrackerdb", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "stock_tickers_id", referencedColumnName = "id", nullable = false))
+    public Set<StockTickers> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<StockTickers> users) {
+        this.users = users;
     }
 }

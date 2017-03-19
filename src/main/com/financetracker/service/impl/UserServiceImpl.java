@@ -1,6 +1,5 @@
 package com.financetracker.service.impl;
 
-import com.financetracker.bean.UserBean;
 import com.financetracker.dao.UserDAO;
 import com.financetracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

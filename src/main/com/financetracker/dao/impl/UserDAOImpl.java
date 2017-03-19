@@ -1,7 +1,5 @@
 package com.financetracker.dao.impl;
 
-import com.financetracker.bean.RoleBean;
-import com.financetracker.bean.UserBean;
 import com.financetracker.dao.UserDAO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

@@ -1,18 +1,21 @@
 package com.financetracker.bean;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
- * Created by User on 13.03.2017.
+ * Created by User on 19.03.2017.
  */
 @Entity
 @Table(name = "stock_price_predictions", schema = "financetrackerdb", catalog = "")
-public class StockPricePredictionsBean {
+public class StockPricePredictions {
     private int id;
     private Timestamp predictionDate;
-    private int stockPrice;
+    private BigDecimal stockPrice;
     private String stockState;
+    private List<StockTickers> pricePredictions;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -36,11 +39,11 @@ public class StockPricePredictionsBean {
 
     @Basic
     @Column(name = "stock_price", nullable = false, precision = 6)
-    public int getStockPrice() {
+    public BigDecimal getStockPrice() {
         return stockPrice;
     }
 
-    public void setStockPrice(int stockPrice) {
+    public void setStockPrice(BigDecimal stockPrice) {
         this.stockPrice = stockPrice;
     }
 
@@ -59,12 +62,12 @@ public class StockPricePredictionsBean {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        StockPricePredictionsBean that = (StockPricePredictionsBean) o;
+        StockPricePredictions that = (StockPricePredictions) o;
 
         if (id != that.id) return false;
-        if (stockPrice != that.stockPrice) return false;
         if (predictionDate != null ? !predictionDate.equals(that.predictionDate) : that.predictionDate != null)
             return false;
+        if (stockPrice != null ? !stockPrice.equals(that.stockPrice) : that.stockPrice != null) return false;
         if (stockState != null ? !stockState.equals(that.stockState) : that.stockState != null) return false;
 
         return true;
@@ -74,8 +77,17 @@ public class StockPricePredictionsBean {
     public int hashCode() {
         int result = id;
         result = 31 * result + (predictionDate != null ? predictionDate.hashCode() : 0);
-        result = 31 * result + stockPrice;
+        result = 31 * result + (stockPrice != null ? stockPrice.hashCode() : 0);
         result = 31 * result + (stockState != null ? stockState.hashCode() : 0);
         return result;
+    }
+
+    @ManyToMany(mappedBy = "stockTickers")
+    public List<StockTickers> getPricePredictions() {
+        return pricePredictions;
+    }
+
+    public void setPricePredictions(List<StockTickers> pricePredictions) {
+        this.pricePredictions = pricePredictions;
     }
 }

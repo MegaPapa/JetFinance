@@ -1,13 +1,15 @@
 package com.financetracker.bean;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
- * Created by User on 13.03.2017.
+ * Created by User on 19.03.2017.
  */
 @Entity
-@Table(name = "role", schema = "financetrackerdb", catalog = "")
-public class RoleBean {
+public class Role {
     private int id;
     private String roleName;
 
@@ -36,10 +38,10 @@ public class RoleBean {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        RoleBean roleBean = (RoleBean) o;
+        Role role = (Role) o;
 
-        if (id != roleBean.id) return false;
-        if (roleName != null ? !roleName.equals(roleBean.roleName) : roleBean.roleName != null) return false;
+        if (id != role.id) return false;
+        if (roleName != null ? !roleName.equals(role.roleName) : role.roleName != null) return false;
 
         return true;
     }

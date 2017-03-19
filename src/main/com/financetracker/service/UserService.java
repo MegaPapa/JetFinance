@@ -1,7 +1,5 @@
 package com.financetracker.service;
 
-import com.financetracker.bean.UserBean;
-
 import java.util.Collection;
 
 /**

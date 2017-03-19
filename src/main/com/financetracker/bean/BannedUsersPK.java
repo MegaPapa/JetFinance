@@ -1,20 +1,18 @@
 package com.financetracker.bean;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
- * Created by User on 13.03.2017.
+ * Created by User on 19.03.2017.
  */
-@Entity
-@Table(name = "banned_users", schema = "financetrackerdb", catalog = "")
-@IdClass(BannedUsersBeanPK.class)
-public class BannedUsersBean {
+public class BannedUsersPK implements Serializable {
     private int systemAdministratorId;
     private int userId;
-    private String description;
 
-    @Id
     @Column(name = "system_administrator_id", nullable = false)
+    @Id
     public int getSystemAdministratorId() {
         return systemAdministratorId;
     }
@@ -23,8 +21,8 @@ public class BannedUsersBean {
         this.systemAdministratorId = systemAdministratorId;
     }
 
-    @Id
     @Column(name = "user_id", nullable = false)
+    @Id
     public int getUserId() {
         return userId;
     }
@@ -33,26 +31,15 @@ public class BannedUsersBean {
         this.userId = userId;
     }
 
-    @Basic
-    @Column(name = "description", nullable = false, length = -1)
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BannedUsersBean that = (BannedUsersBean) o;
+        BannedUsersPK that = (BannedUsersPK) o;
 
         if (systemAdministratorId != that.systemAdministratorId) return false;
         if (userId != that.userId) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
 
         return true;
     }
@@ -61,7 +48,6 @@ public class BannedUsersBean {
     public int hashCode() {
         int result = systemAdministratorId;
         result = 31 * result + userId;
-        result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
 }

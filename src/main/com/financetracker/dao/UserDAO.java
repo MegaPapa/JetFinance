@@ -1,7 +1,5 @@
 package com.financetracker.dao;
 
-import com.financetracker.bean.UserBean;
-
 import java.util.Collection;
 
 /**
