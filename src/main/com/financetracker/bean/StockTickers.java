@@ -68,7 +68,7 @@ public class StockTickers {
         return result;
     }
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "tickers")
     public Set<User> getUserStockTickers() {
         return userStockTickers;
     }

@@ -1,22 +1,29 @@
 package com.financetracker.dao;
 
+import com.financetracker.bean.StockTickers;
 import com.financetracker.bean.User;
+import com.financetracker.dao.exception.DAOException;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
-/**
- * Created by User on 13.03.2017.
- */
 public interface UserDAO {
 
     /* CRUD Operations */
 
     // CREATE
-    void addUser(User user);
+    void addUser(User user) throws DAOException;
+    void addStockTicker(int userId, String tickerName) throws DAOException;
 
     // READ
-    User getUserById(int id);
+    User getUserById(int id) throws DAOException;
+    User getUserByEmail(String email) throws DAOException;
+    Set<StockTickers> getUserTickers(int id) throws DAOException;
+
+    // UPDATE
+    void UpdateUser(User newUserInfo, int id) throws DAOException;
+    void setUserStatus(int id, boolean status) throws DAOException;
 
     // READ
-    Collection<User> getAllUsers();
+    List<User> getAllUsers() throws DAOException;
 }

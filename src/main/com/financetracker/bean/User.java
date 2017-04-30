@@ -1,8 +1,9 @@
 package com.financetracker.bean;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -13,12 +14,12 @@ public class User {
     private int id;
     private String nickname;
     private String password;
-    private byte isActive;
-    private byte isPremium;
+    private boolean isActive;
+    private boolean isPremium;
     private Timestamp premiumEndDate;
     private String email;
     private Role roleByRoleId;
-    private Set<StockTickers> users;
+    private Set<StockTickers> tickers;
     private int roleId;
 
     @Id
@@ -53,21 +54,23 @@ public class User {
 
     @Basic
     @Column(name = "is_active", nullable = false)
-    public byte getIsActive() {
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(byte isActive) {
+    public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
 
     @Basic
     @Column(name = "is_premium", nullable = false)
-    public byte getIsPremium() {
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    public boolean getIsPremium() {
         return isPremium;
     }
 
-    public void setIsPremium(byte isPremium) {
+    public void setIsPremium(boolean isPremium) {
         this.isPremium = isPremium;
     }
 
@@ -115,8 +118,6 @@ public class User {
         int result = id;
         result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (int) isActive;
-        result = 31 * result + (int) isPremium;
         result = 31 * result + (premiumEndDate != null ? premiumEndDate.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         return result;
@@ -134,12 +135,12 @@ public class User {
 
     @ManyToMany
     @JoinTable(name = "user_has_stock_tickers", schema = "financetrackerdb", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "stock_tickers_id", referencedColumnName = "id", nullable = false))
-    public Set<StockTickers> getUsers() {
-        return users;
+    public Set<StockTickers> getTickers() {
+        return tickers;
     }
 
-    public void setUsers(Set<StockTickers> users) {
-        this.users = users;
+    public void setTickers(Set<StockTickers> users) {
+        this.tickers = users;
     }
 
     @Basic
