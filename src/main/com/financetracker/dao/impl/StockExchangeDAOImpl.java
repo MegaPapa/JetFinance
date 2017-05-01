@@ -22,6 +22,9 @@ import java.util.List;
 @Transactional
 public class StockExchangeDAOImpl implements StockExchangeDAO {
 
+    private static final String QUERY_GET_PREDICTION_BY_TICKER =
+            "from StockTickers.stockTickers where StockTickers.ticker = ";
+
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -53,7 +56,7 @@ public class StockExchangeDAOImpl implements StockExchangeDAO {
         try {
             Session session = sessionFactory.getCurrentSession();
             List<StockPricePredictions> predictions = session.createQuery(
-                    "from StockTickers.stockTickers where StockTickers.ticker = " + ticker.getTicker()
+                    QUERY_GET_PREDICTION_BY_TICKER + ticker.getTicker()
             ).list();
             for (StockPricePredictions pricePrediction : predictions) {
                 if (pricePrediction.getPredictionDate() == timestamp) {
@@ -71,7 +74,7 @@ public class StockExchangeDAOImpl implements StockExchangeDAO {
         try {
             Session session = sessionFactory.getCurrentSession();
             List<StockPricePredictions> predictions = session.createQuery(
-                    "from StockTickers.stockTickers where StockTickers.ticker = " + ticker.getTicker()
+                    QUERY_GET_PREDICTION_BY_TICKER + ticker.getTicker()
             ).list();
             if (predictions.size() > 0) {
                 StockPricePredictions lastPrediction = predictions.get(predictions.size());

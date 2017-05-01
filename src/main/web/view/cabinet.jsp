@@ -5,6 +5,6 @@
     <title>User Cabinet Page</title>
 </head>
 <body>
-    Hi , ${user.nickname}
+    Hi , ${user.name}
 </body>
 </html>

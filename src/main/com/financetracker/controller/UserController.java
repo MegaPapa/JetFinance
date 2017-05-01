@@ -1,6 +1,7 @@
 package com.financetracker.controller;
 
 import com.financetracker.service.UserService;
+import com.financetracker.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,9 +21,14 @@ public class UserController {
 
     @RequestMapping("/cabinet/{id}")
     public ModelAndView getUserCabinet(@PathVariable int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/cabinet");
-        modelAndView.addObject("user",userService.getUser(id));
-        return modelAndView;
+        try {
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("/cabinet");
+            modelAndView.addObject("user", userService.getUserById(id));
+            return modelAndView;
+        }
+        catch (ServiceException exception) {
+            return null;
+        }
     }
 }
