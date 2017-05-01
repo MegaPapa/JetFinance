@@ -35,6 +35,15 @@ public class DataExchanger {
         return userDTO;
     }
 
+    public static StockPricePredictions exchangeStockPricePrediction(StockPricePredictionDTO dto) {
+        StockPricePredictions pricePrediction = new StockPricePredictions();
+        pricePrediction.setId(dto.getId());
+        pricePrediction.setStockState(dto.getStockState());
+        pricePrediction.setPredictionDate(dto.getPredictionDate());
+        pricePrediction.setStockPrice(dto.getStockPrice());
+        return pricePrediction;
+    }
+
     public static StockPricePredictionDTO exchangeStockPricePrediction(StockPricePredictions prediction) {
         StockPricePredictionDTO dto = new StockPricePredictionDTO();
         dto.setId(prediction.getId());
@@ -42,6 +51,20 @@ public class DataExchanger {
         dto.setStockPrice(prediction.getStockPrice());
         dto.setStockState(prediction.getStockState());
         return dto;
+    }
+
+    public static StockTickers exchangeStockTicker(CompanyDTO dto) {
+        StockTickers ticker = new StockTickers();
+        ticker.setId(dto.getId());
+        ticker.setCompanyName(dto.getCompanyName());
+        ticker.setTicker(dto.getTicker());
+        List<StockPricePredictionDTO> dtoPredictions = dto.getStockTickers();
+        List<StockPricePredictions> predictions = new ArrayList<StockPricePredictions>();
+        for (StockPricePredictionDTO element : dtoPredictions) {
+            predictions.add(DataExchanger.exchangeStockPricePrediction(element));
+        }
+        ticker.setStockTickers(predictions);
+        return ticker;
     }
 
     public static CompanyDTO exchangeStockTickerToDTO(StockTickers ticker) {
