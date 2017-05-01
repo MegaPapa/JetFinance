@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <security:global-method-security pre-post-annotations="enabled" proxy-target-class="true"/>
+
+    <bean id="springSecurityFilterChain" class="org.springframework.web.filter.DelegatingFilterProxy" />
+    <bean id="userService" class="com.financetracker.security.service.impl.UserDetailsServiceImpl" />
+
+    <security:http pattern="/registration" security="none" />
+    <security:http pattern="/home" security="none" />
+
+    <security:http auto-config="false" disable-url-rewriting="true"
+                   create-session="stateless" entry-point-ref="restAuthenticationEntryPoint"
+                    use-expressions="true">
+        <security:custom-filter ref="restAuthenticationFilter" position="FORM_LOGIN_FILTER"/>
+        <security:access-denied-handler ref="accessDeniedHandler" />
+        <security:csrf disabled="true" />
+    </security:http>
+
+    <bean id="accessDeniedHandler" class="com.financetracker.security.util.AuthorizationError" />
+
+    <bean id="tokenAuthenticationManager" class="com.financetracker.security.TokenAuthenticationManager" />
+
+    <bean id="restAuthenticationFilter" class="com.financetracker.security.TokenAuthenticationFilter" >
+        <property name="authenticationManager" ref="tokenAuthenticationManager" />
+        <property name="authenticationSuccessHandler" ref="restAuthenticationSuccessesHandler" />
+        <property name="authenticationFailureHandler" ref="restAuthenticationFailureHandler" />
+    </bean>
+
+    <bean id="restAuthenticationFailureHandler" class="com.financetracker.security.util.RestAuthenticationFailure" />
+
+    <bean id="restAuthenticationSuccessesHandler" class="com.financetracker.security.util.RestAuthenticationSuccesses" />
+
+    <bean id="restAuthenticationEntryPoint" class="com.financetracker.security.util.RestAuthenticationEntryPoint" />
+
+    <security:authentication-manager>
+        <security:authentication-provider
+                user-service-ref="userService" />
+    </security:authentication-manager>
+</beans>

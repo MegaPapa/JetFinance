@@ -45,7 +45,7 @@ public class StockExchangeServiceImpl implements StockExchangeService {
 
     public StockPricePredictions getPredictionsByTicker(CompanyDTO ticker, Timestamp timestamp) throws ServiceException {
         try {
-            stockExchangeDAO.getPredictionsByTicker(DataExchanger.exchangeStockTicker(ticker), timestamp);
+            return stockExchangeDAO.getPredictionsByTicker(DataExchanger.exchangeStockTicker(ticker), timestamp);
         }
         catch (DAOException exception) {
             throw new ServiceException(exception.getMessage());
@@ -54,7 +54,7 @@ public class StockExchangeServiceImpl implements StockExchangeService {
 
     public StockPricePredictions getLastPredictionByTicker(CompanyDTO ticker) throws ServiceException {
         try {
-            stockExchangeDAO.getLastPredictionByTicker(DataExchanger.exchangeStockTicker(ticker));
+            return stockExchangeDAO.getLastPredictionByTicker(DataExchanger.exchangeStockTicker(ticker));
         }
         catch (DAOException exception) {
             throw new ServiceException(exception.getMessage());
