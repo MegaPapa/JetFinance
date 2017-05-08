@@ -15,8 +15,7 @@
     <security:http pattern="/home" security="none" />
 
     <security:http auto-config="false" disable-url-rewriting="true"
-                   create-session="stateless" entry-point-ref="restAuthenticationEntryPoint"
-                    use-expressions="true">
+                   create-session="stateless" entry-point-ref="restAuthenticationEntryPoint">
         <security:custom-filter ref="restAuthenticationFilter" position="FORM_LOGIN_FILTER"/>
         <security:access-denied-handler ref="accessDeniedHandler" />
         <security:csrf disabled="true" />

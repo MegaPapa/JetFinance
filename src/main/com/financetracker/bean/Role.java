@@ -24,7 +24,7 @@ public class Role {
     }
 
     @Basic
-    @Column(name = "role_name", nullable = false, length = 30)
+    @Column(name = "role", nullable = false, length = 30)
     public String getRoleName() {
         return roleName;
     }
