@@ -9,36 +9,52 @@
     <security:global-method-security pre-post-annotations="enabled" proxy-target-class="true"/>
 
     <bean id="springSecurityFilterChain" class="org.springframework.web.filter.DelegatingFilterProxy" />
-    <bean id="userService" class="com.financetracker.security.service.impl.UserDetailsServiceImpl" />
-
+    <!-- <bean id="userService" class="com.financetracker.security.service.impl.UserDetailsServiceImpl" />
+    -->
     <security:http pattern="/registration" security="none" />
     <security:http pattern="/home" security="none" />
+    <security:http pattern="/cabinet" security="none" />
+    <security:http pattern="/logout" security="none" />
 
     <security:http auto-config="false" disable-url-rewriting="true"
-                   create-session="stateless" entry-point-ref="restAuthenticationEntryPoint">
-        <security:custom-filter ref="restAuthenticationFilter" position="FORM_LOGIN_FILTER"/>
+                   create-session="stateless" >
+        <security:form-login
+                login-page="/registration"
+                default-target-url="/home"
+        />
+        <security:logout
+                logout-url="/logout"
+                logout-success-url="/registration"
+        />
+        <!-- <security:custom-filter ref="restAuthenticationFilter" position="FORM_LOGIN_FILTER"/>
         <security:access-denied-handler ref="accessDeniedHandler" />
-        <security:csrf disabled="true" />
+        <security:csrf disabled="true" /> -->
     </security:http>
 
     <bean id="accessDeniedHandler" class="com.financetracker.security.util.AuthorizationError" />
 
-    <bean id="tokenAuthenticationManager" class="com.financetracker.security.TokenAuthenticationManager" />
+    <!-- <bean id="tokenAuthenticationManager" class="com.financetracker.security.TokenAuthenticationManager" /> -->
 
-    <bean id="restAuthenticationFilter" class="com.financetracker.security.TokenAuthenticationFilter" >
+    <!-- <bean id="restAuthenticationFilter" class="com.financetracker.security.TokenAuthenticationFilter" >
         <property name="authenticationManager" ref="tokenAuthenticationManager" />
         <property name="authenticationSuccessHandler" ref="restAuthenticationSuccessesHandler" />
         <property name="authenticationFailureHandler" ref="restAuthenticationFailureHandler" />
-    </bean>
+    </bean> -->
 
-    <bean id="restAuthenticationFailureHandler" class="com.financetracker.security.util.RestAuthenticationFailure" />
+    <!-- <bean id="restAuthenticationFailureHandler" class="com.financetracker.security.util.RestAuthenticationFailure" />
 
     <bean id="restAuthenticationSuccessesHandler" class="com.financetracker.security.util.RestAuthenticationSuccesses" />
 
     <bean id="restAuthenticationEntryPoint" class="com.financetracker.security.util.RestAuthenticationEntryPoint" />
+    -->
 
     <security:authentication-manager>
+        <security:authentication-provider user-service-ref='userDetailsServiceImpl'>
+            <security:password-encoder hash="md5" />
+        </security:authentication-provider>
+    </security:authentication-manager>
+    <!-- <security:authentication-manager>
         <security:authentication-provider
                 user-service-ref="userService" />
-    </security:authentication-manager>
+    </security:authentication-manager> -->
 </beans>

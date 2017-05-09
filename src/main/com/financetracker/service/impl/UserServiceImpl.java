@@ -5,6 +5,7 @@ import com.financetracker.bean.User;
 import com.financetracker.dao.UserDAO;
 import com.financetracker.dao.exception.DAOException;
 import com.financetracker.dto.CompanyDTO;
+import com.financetracker.dto.RoleDTO;
 import com.financetracker.dto.UserDTO;
 import com.financetracker.service.UserService;
 import com.financetracker.service.exception.ServiceException;
@@ -55,6 +56,15 @@ public class UserServiceImpl implements UserService {
         }
         catch (DAOException exception) {
             throw new ServiceException("User with id = " + id + " not found.");
+        }
+    }
+
+    public RoleDTO getRoleByName(String roleName) throws ServiceException {
+        try {
+            return DataExchanger.exchangeRoleToRoleDTO(userDAO.getRoleByName(roleName));
+        }
+        catch (DAOException exception) {
+            throw new ServiceException(exception);
         }
     }
 

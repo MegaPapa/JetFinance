@@ -102,6 +102,19 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    public Role getRoleByName(String roleName) throws DAOException {
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            Role role = (Role) session.createQuery(
+                    "from Role where Role.roleName = " + roleName
+            ).getSingleResult();
+            return role;
+        }
+        catch (Exception exception) {
+            throw new DAOException(exception);
+        }
+    }
+
     public void UpdateUser(User newUserInfo, int id) throws DAOException {
         try {
             Session session = sessionFactory.getCurrentSession();

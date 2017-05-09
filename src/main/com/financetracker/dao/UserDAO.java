@@ -1,5 +1,6 @@
 package com.financetracker.dao;
 
+import com.financetracker.bean.Role;
 import com.financetracker.bean.StockTickers;
 import com.financetracker.bean.User;
 import com.financetracker.dao.exception.DAOException;
@@ -19,6 +20,7 @@ public interface UserDAO {
     User getUserById(int id) throws DAOException;
     User getUserByEmail(String email) throws DAOException;
     Set<StockTickers> getUserTickers(int id) throws DAOException;
+    Role getRoleByName(String roleName) throws DAOException;
 
     // UPDATE
     void UpdateUser(User newUserInfo, int id) throws DAOException;

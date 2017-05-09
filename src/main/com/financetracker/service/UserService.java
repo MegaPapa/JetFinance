@@ -2,6 +2,7 @@ package com.financetracker.service;
 
 import com.financetracker.bean.User;
 import com.financetracker.dto.CompanyDTO;
+import com.financetracker.dto.RoleDTO;
 import com.financetracker.dto.UserDTO;
 import com.financetracker.service.exception.ServiceException;
 
@@ -17,6 +18,7 @@ public interface UserService {
     void addStockTicker(int userId, String ticket) throws ServiceException;
 
     UserDTO getUserById(int id) throws ServiceException;
+    RoleDTO getRoleByName(String roleName) throws ServiceException;
     UserDTO getUserByEmail(String email) throws ServiceException;
     Set<CompanyDTO> getUserTickers(int id) throws ServiceException;
     Collection<UserDTO> getAllUsers() throws ServiceException;

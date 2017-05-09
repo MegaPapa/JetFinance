@@ -1,9 +1,11 @@
 package com.financetracker.service.exchanger;
 
+import com.financetracker.bean.Role;
 import com.financetracker.bean.StockPricePredictions;
 import com.financetracker.bean.StockTickers;
 import com.financetracker.bean.User;
 import com.financetracker.dto.CompanyDTO;
+import com.financetracker.dto.RoleDTO;
 import com.financetracker.dto.StockPricePredictionDTO;
 import com.financetracker.dto.UserDTO;
 
@@ -22,7 +24,22 @@ public class DataExchanger {
         user.setNickname(userDTO.getName());
         user.setTickers(userDTO.getTickers());
         user.setPassword(userDTO.getPassword());
+        user.setRoleByRoleId(DataExchanger.exchangeRoleDTOToRole(userDTO.getRoleDTO()));
         return user;
+    }
+
+    public static Role exchangeRoleDTOToRole(RoleDTO roleDTO) {
+        Role role = new Role();
+        role.setId(roleDTO.getId());
+        role.setRoleName(role.getRoleName());
+        return role;
+    }
+
+    public static RoleDTO exchangeRoleToRoleDTO(Role role) {
+        RoleDTO roleDTO = new RoleDTO();
+        roleDTO.setId(role.getId());
+        roleDTO.setRoleName(role.getRoleName());
+        return roleDTO;
     }
 
     public static UserDTO exchangeUserToDTO(User user) {

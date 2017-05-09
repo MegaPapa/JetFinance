@@ -13,6 +13,7 @@ public class UserDTO {
     private String email;
     private String name;
     private String password;
+    private RoleDTO roleDTO;
     private Set<StockTickers> tickers;
 
     public String getEmail() {
@@ -53,5 +54,13 @@ public class UserDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public RoleDTO getRoleDTO() {
+        return roleDTO;
+    }
+
+    public void setRoleDTO(RoleDTO roleDTO) {
+        this.roleDTO = roleDTO;
     }
 }
